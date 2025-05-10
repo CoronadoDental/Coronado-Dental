@@ -23,6 +23,16 @@
     .bg-overlay {
       background-color: rgba(255, 255, 255, 0.95);
     }
+    .scrolling-wrapper {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .scrolling-wrapper::-webkit-scrollbar {
+      display: none;
+    }
   </style>
 </head>
 <body class="text-gray-800 font-sans">
@@ -34,8 +44,8 @@
       <p class="text-sm text-gray-600">Dra. Erica Nancy Rodriguez Rhis</p>
     </header>
 
-    <!-- Sección de Obras Sociales -->
-    <section class="max-w-4xl mx-auto mt-8 p-4">
+    <!-- Sección de Obras Sociales condensada y desplazable -->
+    <section class="max-w-5xl mx-auto mt-8 p-4">
       <h2 class="text-2xl font-bold text-[color:var(--verde-coronado)] mb-4">Obras Sociales que Atendemos</h2>
       <input 
         type="text" 
@@ -43,17 +53,7 @@
         placeholder="Buscar obra social..." 
         class="w-full p-2 mb-4 border rounded-lg shadow-sm"
       >
-      <table class="w-full table-auto border-collapse">
-        <thead>
-          <tr class="bg-[color:var(--verde-coronado)] text-white">
-            <th class="p-2 text-left">Obra Social</th>
-            <th class="p-2 text-left">Observación</th>
-          </tr>
-        </thead>
-        <tbody id="tabla-obras-sociales" class="bg-white">
-          <tr><td colspan="2" class="p-2 text-center text-gray-500">Cargando datos...</td></tr>
-        </tbody>
-      </table>
+      <div id="lista-obras" class="scrolling-wrapper space-x-2 text-sm sm:text-base pb-2"></div>
     </section>
 
     <!-- Sección Mapa + Calendly -->
@@ -101,23 +101,23 @@
       const response = await fetch('obras_sociales.csv');
       const data = await response.text();
       const filas = data.trim().split('\n').slice(1);
-      const tabla = document.getElementById('tabla-obras-sociales');
-      tabla.innerHTML = '';
+      const contenedor = document.getElementById('lista-obras');
+      contenedor.innerHTML = '';
 
       filas.forEach(linea => {
-        const [obra, obs] = linea.split(',');
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td class="p-2 border">${obra}</td><td class="p-2 border">${obs}</td>`;
-        tabla.appendChild(tr);
+        const [obra] = linea.split(',');
+        const span = document.createElement('span');
+        span.className = 'bg-white border border-gray-300 px-3 py-1 rounded-full shadow text-gray-800 whitespace-nowrap';
+        span.textContent = obra;
+        contenedor.appendChild(span);
       });
     }
 
     document.getElementById('buscador').addEventListener('input', function () {
       const filtro = this.value.toLowerCase();
-      const filas = document.querySelectorAll('#tabla-obras-sociales tr');
-      filas.forEach(fila => {
-        const texto = fila.textContent.toLowerCase();
-        fila.style.display = texto.includes(filtro) ? '' : 'none';
+      const elementos = document.querySelectorAll('#lista-obras span');
+      elementos.forEach(el => {
+        el.style.display = el.textContent.toLowerCase().includes(filtro) ? 'inline-block' : 'none';
       });
     });
 
