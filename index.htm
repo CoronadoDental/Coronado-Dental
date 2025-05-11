@@ -27,8 +27,8 @@
       display: inline-flex;
       flex-wrap: nowrap;
       white-space: nowrap;
-      justify-content: center;
-      animation: scroll-left 58s linear infinite;
+      animation: scroll-left 66s linear infinite;
+      will-change: transform;
     }
     .scrolling-wrapper:hover,
     .scrolling-wrapper:active,
@@ -36,7 +36,7 @@
       animation-play-state: paused;
     }
     @keyframes scroll-left {
-      0% { transform: translateX(12.5%); }
+      0% { transform: translateX(10%); }
       100% { transform: translateX(-100%); }
     }
     .scrolling-wrapper span {
@@ -70,8 +70,8 @@
         placeholder="Buscar obra social..." 
         class="w-full p-2 mb-4 border rounded-lg shadow-sm"
       >
-      <div id="lista-obras-container" class="overflow-hidden">
-        <div id="lista-obras" class="scrolling-wrapper text-sm sm:text-base pb-2 touch-manipulation"></div>
+      <div id="lista-obras-container" class="overflow-hidden relative">
+        <div id="lista-obras" class="scrolling-wrapper text-sm sm:text-base pb-2 touch-manipulation mx-auto w-max"></div>
       </div>
     </section>
 
@@ -132,7 +132,6 @@
       });
 
       contenedor.scrollLeft = 0;
-      contenedor.style.justifyContent = 'center';
     }
 
     document.getElementById('buscador').addEventListener('input', function () {
