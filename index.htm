@@ -29,11 +29,13 @@
       white-space: nowrap;
       animation: scroll-left 66s linear infinite;
       will-change: transform;
+      transform: translateX(0); /* reset inicial */
     }
     .scrolling-wrapper:hover,
     .scrolling-wrapper:active,
     .scrolling-wrapper.paused {
       animation-play-state: paused;
+      transform: none !important;
     }
     @keyframes scroll-left {
       0% { transform: translateX(10%); }
