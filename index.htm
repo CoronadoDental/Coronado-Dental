@@ -27,7 +27,7 @@
       display: inline-flex;
       flex-wrap: nowrap;
       white-space: nowrap;
-      animation: scroll-left 40s linear infinite;
+      animation: scroll-left 50s linear infinite;
     }
     .scrolling-wrapper:hover,
     .scrolling-wrapper:active,
@@ -35,7 +35,7 @@
       animation-play-state: paused;
     }
     @keyframes scroll-left {
-      0% { transform: translateX(50%); }
+      0% { transform: translateX(25%); }
       100% { transform: translateX(-100%); }
     }
     .scrolling-wrapper span {
@@ -129,6 +129,9 @@
         span.textContent = obra;
         contenedor.appendChild(span);
       });
+
+      // Reset scroll position after loading
+      contenedor.scrollLeft = 0;
     }
 
     document.getElementById('buscador').addEventListener('input', function () {
