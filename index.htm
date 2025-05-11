@@ -27,7 +27,8 @@
       display: inline-flex;
       flex-wrap: nowrap;
       white-space: nowrap;
-      animation: scroll-left 50s linear infinite;
+      justify-content: center;
+      animation: scroll-left 58s linear infinite;
     }
     .scrolling-wrapper:hover,
     .scrolling-wrapper:active,
@@ -35,7 +36,7 @@
       animation-play-state: paused;
     }
     @keyframes scroll-left {
-      0% { transform: translateX(25%); }
+      0% { transform: translateX(12.5%); }
       100% { transform: translateX(-100%); }
     }
     .scrolling-wrapper span {
@@ -130,8 +131,8 @@
         contenedor.appendChild(span);
       });
 
-      // Reset scroll position after loading
       contenedor.scrollLeft = 0;
+      contenedor.style.justifyContent = 'center';
     }
 
     document.getElementById('buscador').addEventListener('input', function () {
@@ -139,7 +140,6 @@
       const lista = document.getElementById('lista-obras');
       const elementos = lista.querySelectorAll('span');
 
-      // Pausar animación si hay texto en el buscador
       if (filtro.length > 0) {
         lista.classList.add('paused');
       } else {
